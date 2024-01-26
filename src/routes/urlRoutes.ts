@@ -1,5 +1,9 @@
 import express from 'express';
 const router = express.Router();
-import { Request, Response } from 'express';
+import { shortenUrl, expandUrl } from '../controllers/urlController';
 
+router.post('/shorten',shortenUrl);
+router.get('/expand/:shortUrl', expandUrl);
+
+export default router; 
 

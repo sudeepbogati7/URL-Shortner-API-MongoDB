@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import bodyparser from "body-parser"
 import cors from 'cors';
-// import urlRoutes from './routes/urlRoutes';
+import urlRoutes from './routes/urlRoutes';
 
 
 class App {
@@ -18,9 +18,11 @@ class App {
         this.express.use(bodyparser.json());
     }
 
-    // private routes() ; void {
-    //     this.express.use('/api', urlRoutes)
-    // }
+    private routes() : void {
+        this.express.use('/api', urlRoutes);
+    }
+
+
 }
 
 

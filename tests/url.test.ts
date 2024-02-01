@@ -28,36 +28,31 @@
 
 
 
-
-
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import request from 'supertest';
 import mongoose from 'mongoose';
-import app from '../src/app'; // assuming your Express app is defined in a file called 'app'
-
-// Mock the UrlModel to avoid actual database operations
-jest.mock('../models/url');
+import app from '../src/app';
 import UrlModel from '../src/models/url';
 
-// Mock nanoid to return a predictable short URL
-jest.mock('nanoid', () => {
-  return {
-    nanoid: jest.fn(() => 'mockedShortUrl'),
-  };
+
+
+jest.mock('../models/url');
+jest.mock('nanoid', () => ({
+  nanoid: jest.fn(() => 'mockedShortUrl'),
+}));
+
+const mockedUrlModel = mocked(UrlModel,{shallow:false}));
+
+beforeEach(() => {
+  mockedUrlModel.findOne.mockClear();
+  mockedUrlModel.create.mockClear();
 });
 
-const mockedUrlModel = mocked(UrlModel, true);
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 describe('URL Controller', () => {
-  beforeEach(() => {
-    mockedUrlModel.findOne.mockClear();
-    mockedUrlModel.create.mockClear();
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
   describe('Shorten URL', () => {
     it('should return existing URL if it already exists', async () => {
       mockedUrlModel.findOne.mockResolvedValueOnce({ originalUrl: 'http://example.com', shortUrl: 'existingShortUrl' });

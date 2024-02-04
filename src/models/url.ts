@@ -1,6 +1,6 @@
 import mongoose , { Document , Schema, mongo } from "mongoose";
 
-interface Url extends Document {
+export interface Url extends Document {
     originalUrl : string; 
     shortUrl : string; 
 }
@@ -20,4 +20,4 @@ const urlSchema = new Schema <Url>({
 
 const UrlModel = mongoose.model<Url>('Url', urlSchema);
 
-export default UrlModel ; 
+export default UrlModel;

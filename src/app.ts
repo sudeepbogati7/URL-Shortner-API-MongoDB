@@ -1,12 +1,10 @@
 import express, { Express, Request, Response, NextFunction } from "express";
-import bodyparser from "body-parser"
+import * as bodyparser from "body-parser"
 import cors from 'cors';
 import urlRoutes from './routes/urlRoutes';
 
-
 class App {
     public express : Express;
-    
     constructor(){
         this.express = express();
         this.middlewares();

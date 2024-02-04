@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import UrlModel from "../models/url";
-//const { nanoid } = require('nanoid');
 import { nanoid } from "nanoid";
 
 interface ShortenUrlRequest extends Request {
@@ -14,8 +13,6 @@ interface ExpandUrlRequest extends Request {
     shortUrl: string;
   };
 }
-
-
 const shortenUrl = async (req: ShortenUrlRequest, res: Response) => {
   try {
     const { originalUrl }: { originalUrl: string } = req.body;
